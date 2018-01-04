@@ -3,6 +3,7 @@
   (require-package 'go-eldoc)
   (require-package 'go-projectile)
   (require-package 'gotest)
+  (require-package 'go-autocomplete)
 
   (require 'go-projectile)
 
@@ -12,6 +13,8 @@
   (define-key 'help-command (kbd "G") 'godoc)
 
   (after-load 'go-mode
+    (require 'go-autocomplete)
+
     (defun init-go-mode-defaults ()
       ;; Add to default go-mode key bindings
       (let ((map go-mode-map))
@@ -34,7 +37,9 @@
       (go-eldoc-setup)
 
       ;; CamelCase aware editing operations
-      (subword-mode +1))
+      (subword-mode +1)
+
+      (auto-complete-mode 1))
 
     (setq custom-go-mode-hook 'init-go-mode-defaults)
 
