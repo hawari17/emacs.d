@@ -13,8 +13,6 @@
   (define-key 'help-command (kbd "G") 'godoc)
 
   (after-load 'go-mode
-    (require 'go-autocomplete)
-
     (defun init-go-mode-defaults ()
       ;; Add to default go-mode key bindings
       (let ((map go-mode-map))
@@ -23,6 +21,11 @@
         (define-key map (kbd "C-c .") 'go-test-current-test)
         (define-key map (kbd "C-c b") 'go-run)
         (define-key map (kbd "C-h f") 'godoc-at-point))
+
+      ;; Prefer goimports to gofmt if installed
+      (let ((goimports (executable-find "goimports")))
+        (when goimports
+          (setq gofmt-command goimports)))
 
       ;; go fmt on save
       (add-hook `before-save-hook `gofmt-before-save nil t)
@@ -37,9 +40,7 @@
       (go-eldoc-setup)
 
       ;; CamelCase aware editing operations
-      (subword-mode +1)
-
-      (auto-complete-mode 1))
+      (subword-mode +1))
 
     (setq custom-go-mode-hook 'init-go-mode-defaults)
 

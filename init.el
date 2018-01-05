@@ -48,7 +48,6 @@
 (require-package 'diminish)
 (require-package 'scratch)
 (require-package 'command-log-mode)
-(require-package 'auto-complete)
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
